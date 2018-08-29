@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Route } from 'react-router-dom'
 import SearchBooks from './SearchBooks'
 import ListBooks from './ListBooks'
-import * as BooksAPI from './utils/BooksAPI'
+import { getAll } from './utils/BooksAPI'
 import './App.css'
 
 class BooksApp extends Component {
@@ -10,20 +10,31 @@ class BooksApp extends Component {
     books: []
   }
 
-  componentDidMount() {
-    BooksAPI.getAll().then((books) => {
+  getBooks = () => {
+    getAll().then((books) => {
       this.setState({ books })
-      console.log(books)
     })
   }
 
+  componentDidMount() {
+   this.getBooks()
+  }
+
+  updateBookshelves = (bool) => {
+    bool&&this.getBooks()
+  }
+
   render() {
+    const { books } = this.state
+
     return (
       <div className="app">
-        <Route path="/search" component={SearchBooks}/>
+        <Route path="/search" render={() => (
+          <SearchBooks books={books} onShelfExchange={(bool) => this.updateBookshelves(bool)}/>
+        )}/>
         <Route exact path="/" render={() => (
-          <ListBooks books={this.state.books}/>
-        )} />
+          <ListBooks books={books} onShelfExchange={(bool) => this.updateBookshelves(bool)}/>
+        )}/>
       </div>
     )
   }

@@ -1,31 +1,50 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { get } from './utils/BooksAPI'
+import ShelfChanger from './ShelfChanger'
 
 class Book extends Component {
   static propTypes = {
     book: PropTypes.object.isRequired
   }
 
+  state = {
+    book: {}
+  }
+
+  componentDidMount() {
+    get(this.props.book.id).then((book) => {
+      this.setState({ book })
+    })
+  }
+
+  validateBook = (book) => {
+    return this.props.shelf.includes(book.shelf)
+  }
+
   render () {
-    const { book } = this.props
+    const { book } = this.states
+    const { onShelfExchange } = this.props
 
     return (
-      <div className="book">
-        <div className="book-top">
-          <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
-          <div className="book-shelf-changer">
-            <select>
-              <option value="move" disabled>Move to...</option>
-              <option value="currentlyReading">Currently Reading</option>
-              <option value="wantToRead">Want to Read</option>
-              <option value="read">Read</option>
-              <option value="none">None</option>
-            </select>
-          </div>
-        </div>
-        <div className="book-title">{book.title}</div>
+      <div>
+        {this.validateBook(book)&&(
+          <div className="book">
+            <div className="book-top">
+              <div className="book-cover"
+                style={
+                  { width: 128,
+                    height: 193,
+                    backgroundImage: `url(${book.imageLinks&&book.imageLinks.thumbnail})`
+                  }
+                }></div>
+              <ShelfChanger book={book} onShelfExchange={(bool) => onShelfExchange(bool)}/>
+            </div>
+            <div className="book-title">{book.title}</div>
 
-        <div className="book-authors">{book.authors.map(name => name)}</div>
+            <div className="book-authors">{book.authors&&book.authors.map(name => name)}</div>
+          </div>
+        )}
       </div>
     )
   }

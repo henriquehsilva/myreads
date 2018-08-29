@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import Book from './Book'
 import PropTypes from 'prop-types'
+import Book from './Book'
 
 class Bookshelf extends Component {
   static propTypes = {
@@ -12,7 +12,7 @@ class Bookshelf extends Component {
   }
 
   render () {
-    const { books } = this.props
+    const { books, onShelfExchange } = this.props
 
     let bookshelves = [
       { title: 'Currently Reading', books: this.getBooksByBookshelf(books, 'currentlyReading') },
@@ -30,7 +30,11 @@ class Bookshelf extends Component {
                 <ol className="books-grid">
                   {bookshelf.books.map((book) => (
                     <li key={book.id}>
-                      <Book book={book}/>
+                      <Book
+                        book={book}
+                        shelf={['currentlyReading', 'wantToRead', 'read']}
+                        onShelfExchange={(bool) => onShelfExchange(bool)}
+                      />
                     </li>
                   ))}
                 </ol>

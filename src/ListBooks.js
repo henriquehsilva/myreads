@@ -9,7 +9,7 @@ class ListBooks extends Component {
   }
 
   render () {
-    const { books } = this.props
+    const { books, onShelfExchange } = this.props
 
     return (
       <div className="list-books">
@@ -17,7 +17,7 @@ class ListBooks extends Component {
         <h1>MyReads</h1>
       </div>
       <div className="list-books-content">
-        <Bookshelf books={books}/>
+        <Bookshelf books={books} onShelfExchange={(bool) => onShelfExchange(bool)}/>
       </div>
       <Link to="/search" className="open-search">Add a book</Link>
     </div>
