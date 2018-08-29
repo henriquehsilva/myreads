@@ -23,7 +23,7 @@ class Book extends Component {
   }
 
   render () {
-    const { book } = this.states
+    const { book } = this.state
     const { onShelfExchange } = this.props
 
     return (
