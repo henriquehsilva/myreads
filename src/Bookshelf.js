@@ -32,7 +32,6 @@ class Bookshelf extends Component {
                     <li key={book.id}>
                       <Book
                         book={book}
-                        shelf={['currentlyReading', 'wantToRead', 'read']}
                         onShelfExchange={(bool) => onShelfExchange(bool)}
                       />
                     </li>

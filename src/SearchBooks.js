@@ -38,7 +38,6 @@ class SearchBooks extends Component {
                 <li key={book.id}>
                   <Book
                     book={book}
-                    shelf={['none']}
                     onShelfExchange={(bool) => onShelfExchange(bool)}
                   />
                 </li>

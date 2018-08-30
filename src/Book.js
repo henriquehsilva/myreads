@@ -18,17 +18,13 @@ class Book extends Component {
     })
   }
 
-  validateBook = (book) => {
-    return this.props.shelf.includes(book.shelf)
-  }
-
   render () {
     const { book } = this.state
     const { onShelfExchange } = this.props
 
     return (
       <div>
-        {this.validateBook(book)&&(
+
           <div className="book">
             <div className="book-top">
               <div className="book-cover"
@@ -44,7 +40,6 @@ class Book extends Component {
 
             <div className="book-authors">{book.authors&&book.authors.map(name => name)}</div>
           </div>
-        )}
       </div>
     )
   }
