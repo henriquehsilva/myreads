@@ -16,8 +16,8 @@ class BooksApp extends Component {
     })
   }
 
-  componentDidMount() {
-   this.getBooks()
+  async componentDidMount() {
+    await this.getBooks()
   }
 
   updateBookshelves = (bool) => {

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import debounce from 'lodash.debounce'
 import { search } from './utils/BooksAPI'
 import Book from './Book'
 
@@ -8,12 +9,12 @@ class SearchBooks extends Component {
     books: []
   }
 
-  findBooks = (query) => {
+  findBooks = debounce((query) => {
     query = !query ? " " : query
     search(query).then((books) => {
       this.setState({books})
     })
-  }
+  }, 1000)
 
   render() {
     const { books } = this.state;

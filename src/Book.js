@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { get } from './utils/BooksAPI'
 import ShelfChanger from './ShelfChanger'
 
-class Book extends Component {
+class Book extends PureComponent {
   static propTypes = {
     book: PropTypes.object.isRequired
   }
